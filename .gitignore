@@ -12,17 +12,3 @@ rust-project.json
 *.iml
 *.o
 public/
-.devcontainer.bak/*
-# Local Netlify folder
-.netlify
-Cargo.toml
-Cargo.lock
-
-hello-world/
-if2
-ms.src/
-rustlings-fix-solution.md
-rusty-journal/
-tc --explain E0369*
-.devcontainer/setup.sh
-.devcontainer/devcontainer.json
