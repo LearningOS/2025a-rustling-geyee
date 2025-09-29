@@ -2,7 +2,7 @@
 	single linked list merge
 	This problem requires you to merge two ordered singly linked lists into one ordered singly linked list
 */
-// I AM NOT DONE
+// I AM DONE
 
 use std::fmt::{self, Display, Formatter};
 use std::ptr::NonNull;
@@ -70,14 +70,52 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn merge(list_a:LinkedList<T>,list_b:LinkedList<T>) -> Self
+	where
+		T: Ord + Clone,
 	{
-		//TODO
-		Self {
-            length: 0,
-            start: None,
-            end: None,
-        }
+		let mut result = LinkedList::new();
+		let mut a = list_a.start;
+		let mut b = list_b.start;
+
+		while let (Some(a_node), Some(b_node)) = (a, b) {
+			unsafe {
+				if (*a_node.as_ptr()).val <= (*b_node.as_ptr()).val {
+					result.add((*a_node.as_ptr()).val.clone());
+					a = (*a_node.as_ptr()).next;
+				} else {
+					result.add((*b_node.as_ptr()).val.clone());
+					b = (*b_node.as_ptr()).next;
+				}
+			}
+		}
+
+
+		while let Some(a_node) = a {
+			unsafe {
+				result.add((*a_node.as_ptr()).val.clone());
+				a = (*a_node.as_ptr()).next;
+			}
+		}
+
+
+		while let Some(b_node) = b {
+			unsafe {
+				result.add((*b_node.as_ptr()).val.clone());
+				b = (*b_node.as_ptr()).next;
+			}
+		}
+
+		result
 	}
+
+                   //TODO
+//
+//       Self {
+//            length: 0,
+//            start: None,
+//            end: None,
+//        }
+
 }
 
 impl<T> Display for LinkedList<T>
@@ -135,7 +173,7 @@ mod tests {
 		let vec_a = vec![1,3,5,7];
 		let vec_b = vec![2,4,6,8];
 		let target_vec = vec![1,2,3,4,5,6,7,8];
-		
+
 		for i in 0..vec_a.len(){
 			list_a.add(vec_a[i]);
 		}
